@@ -1,1 +1,6 @@
-/faces/final_files
+# Hidden files
+._*
+
+# The data directory
+faces/
+
