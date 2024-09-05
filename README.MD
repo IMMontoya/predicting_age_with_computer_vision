@@ -1,9 +1,13 @@
 # Predicting Customer Age with Computer Vision
 
-[Notebook](notebook.ipynb)  
-[EDA](#eda)  
-[Model Training](#model-training)  
-[Conclusions](#conclusions)  
+## Table of Contents
+
+- [Notebook](/predict_age_com_vis.ipynb)
+- [Project Overview](#project-overview)
+- [EDA](#eda)
+- [Model Training](#model-training)
+- [Conclusions](#conclusions)
+- [Approaches for Improvement](#approaches-for-improvement)
 
 ## Project Overview
 
@@ -18,15 +22,15 @@ Our task is to build and evaluate a model that can verify a customer's age using
 - Train the neural network to an MAE of no more than 8 years.
 - Provide an assessment of the model, and suggest further steps.
 
-### EDA
+## EDA
 
-#### Age Distribution
+### Age Distribution
 
 ![Age Distribution of the Dataset](/images/age_distribution.png)  
 
 There is good representation of ages between 14 and 40, which is good since this is the age range where you would expect the most difficulty in determining age. There is also a large representation of ages from 0 to about 6 - this age group may be unnecessary to train on considering this age group isn't even capable of working the checkout machine. It would also probably be better to have closer to equal representation for ages between ~6 years old to ~80 years old.  
 
-#### Image Quality
+### Image Quality
 
 Two functions were created to explore the photo dataset.
 
@@ -72,7 +76,7 @@ Further exploration of the photo dataset revealed three additional issues:
 <br>
 This brief exploration of the photo dataset  revealed several issues that suggest this not an ideal dataset for our purposes. For now we have been advised to proceed with the dataset as is. Suggestions for improvement have been made in the conclusions section.
 
-### Model Training
+## Model Training
 
 Creating and training the model:
 
@@ -132,7 +136,7 @@ model = create_model(train_data.image_shape)
 model = train_model(model, train_data, test_data, epochs=20)
 ```
 
-#### Output
+### Output
 
 ```
 Epoch 1/20
@@ -177,14 +181,24 @@ Epoch 20/20
 178/178 - 63s - 351ms/step - loss: 9.4347 - mae: 2.3599 - val_loss: 88.0153 - val_mae: 7.3410
 ```
 
-### Conclusions
+## Conclusions
 
 The training results indicate that the model's performance improves significantly over the 20 epochs. Initially, the training loss (mean squared error) starts at 201.0227 with a mean absolute error (mae) of 10.5210. By the final epoch, the training loss reduces to 9.4347, and the mae decreases to 2.3599, indicating that the model is learning effectively. However, the validation loss and mae do not show a consistent downward trend, starting from 299.6578 and 12.8978, respectively, and ending at 88.0153 and 7.3410. This suggests that while the model is improving on the training data, the performance on the validation set shows variability, indicating potential overfitting or data-related issues.
 
-#### Possible Approaches for Improvement
+## Approaches for Improvement
 
 - Additional cleaning of the photo dataset to address scaling / image corruption issues, images suitable to this task (is it really a photo capturing someone's face), and diversity.  
 - Implement early stopping to monitor the validation loss and stop training when it no longer improves.  
 - Add regularization techniques, such as dropout or L2 regularization, to prevent overfitting.
 - Further increase the diversity of the training data through data augmentation techniques.
 - Experiment with learning rate schedules or adaptive learning rates to optimize training.
+
+## Libraries Used
+
+Python 3.10.9  
+pandas=2.0.3  
+numpy=1.25.2  
+matplotlib=3.7.1  
+seaborn=0.13.1  
+PIL=10.3.0  
+tensorflow=2.17.0  
