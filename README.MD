@@ -13,14 +13,14 @@
 
 The supermarket chain Good Seed is introducing a computer vision system for processing customer photos. Specifically, they are introducing cameras in the checkout area which are triggered when a customer is buying alcohol. The model will be used to predict the customer's age as part of the age verification process for legal alcohol purchases.
 
-Our task is to build and evaluate a model that can verify a customer's age using the mean squared error as our loss metric.
+Our task is to build and evaluate a model that can verify a customer's age using customer facing camera at the register. The mean squared error will serve as our loss metric.
 
 ### Project Goals
 
 - Analyze the dataset and provide feedback on the data quality
 - Prepare the data and define functions for training
 - Train the neural network to an MAE of no more than 8 years.
-- Provide an assessment of the model, and suggest further steps.
+- Provide an assessment of the model and suggest further steps.
 
 ## EDA
 
@@ -28,7 +28,7 @@ Our task is to build and evaluate a model that can verify a customer's age using
 
 ![Age Distribution of the Dataset](/images/age_distribution.png)  
 
-There is good representation of ages between 14 and 40, which is good since this is the age range where you would expect the most difficulty in determining age. There is also a large representation of ages from 0 to about 6 - this age group may be unnecessary to train on considering this age group isn't even capable of working the checkout machine. It would also probably be better to have closer to equal representation for ages between ~6 years old to ~80 years old.  
+There is good representation of ages between 14 and 40. This is acceptable since this is the age range where you would expect the most difficulty in determining age. There is also a large representation of ages from 0 to about 6 - this age group may be unnecessary to train on considering this age group isn't even capable of working the checkout machine. It would also probably be better to have closer to equal representation for ages between ~6 years old to ~80 years old.  
 
 ### Image Quality
 
@@ -74,7 +74,7 @@ Further exploration of the photo dataset revealed three additional issues:
 <img src="images/irrelevant_example_1.png" alt="Irrelevant image" style="width: 49.5%; height: auto;"/>
 </div>  
 <br>
-This brief exploration of the photo dataset  revealed several issues that suggest this not an ideal dataset for our purposes. For now we have been advised to proceed with the dataset as is. Suggestions for improvement have been made in the conclusions section.
+This brief exploration of the photo dataset revealed several issues that suggest this is not an ideal dataset for our purposes. For now we have been advised to proceed with the dataset as is. Suggestions for improvement have been made in the conclusions section.
 
 ## Model Training
 
@@ -183,11 +183,12 @@ Epoch 20/20
 
 ## Conclusions
 
-The training results indicate that the model's performance improves significantly over the 20 epochs. Initially, the training loss (mean squared error) starts at 201.0227 with a mean absolute error (mae) of 10.5210. By the final epoch, the training loss reduces to 9.4347, and the mae decreases to 2.3599, indicating that the model is learning effectively. However, the validation loss and mae do not show a consistent downward trend, starting from 299.6578 and 12.8978, respectively, and ending at 88.0153 and 7.3410. This suggests that while the model is improving on the training data, the performance on the validation set shows variability, indicating potential overfitting or data-related issues.
+The training results indicate that the model's performance improves significantly over the 20 epochs. Initially, the training loss (mean squared error) starts at 201.0227 with a mean absolute error (MAE) of 10.5210. By the final epoch, the training loss reduces to 9.4347, and the MAE decreases to 2.3599, indicating that the model is learning effectively. However, the validation loss and MAE do not show a consistent downward trend, starting from 299.6578 and 12.8978, respectively, and ending at 88.0153 and 7.3410. This suggests that while the model is improving on the training data, the performance on the validation set shows variability, indicating potential overfitting or data-related issues.
 
 ## Approaches for Improvement
 
-- Additional cleaning of the photo dataset to address scaling / image corruption issues, images suitable to this task (is it really a photo capturing someone's face), and diversity.  
+- Augment or replace the photo dataset with another dataset of faces with age labels. Ideally one that is more diverse and has higher quality images.
+- Additional cleaning of the photo dataset to address scaling / image corruption issues, images suitable to this task (is it really a photo capturing someone's face?), and diversity.
 - Implement early stopping to monitor the validation loss and stop training when it no longer improves.  
 - Add regularization techniques, such as dropout or L2 regularization, to prevent overfitting.
 - Further increase the diversity of the training data through data augmentation techniques.
